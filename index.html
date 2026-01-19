@@ -102,7 +102,6 @@
             ar
             ar-modes="webxr scene-viewer quick-look"
             ar-placement="floor"
-            camera-target="0m 0m 0m"
             shadow-intensity="1"
             shadow-softness="1"
             exposure="1"
@@ -158,11 +157,6 @@
             // Scale set to 1.0 for proper life-size (5'10")
             const scale = 1.0;
             modelViewer.scale = `${scale} ${scale} ${scale}`;
-            
-            // Adjust vertical position to prevent floating
-            // Negative value pushes model down to floor level
-            modelViewer.orientation = '0deg 0deg 0deg';
-            modelViewer.cameraTarget = '0m -0.1m 0m';
             
             console.log('Model loaded and scaled to:', scale);
         });
