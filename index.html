@@ -96,7 +96,7 @@
         <p class="subtitle">Tap and drag to rotate • Pinch to zoom</p>
         
         <model-viewer
-            src="Augustine+Dwarf+Idle.glb"
+            src="[Augustine+Dwarf+Idle.glb"
             camera-controls
             touch-action="pan-y"
             ar
@@ -110,7 +110,7 @@
             camera-orbit="0deg 90deg 2m"
             min-camera-orbit="auto auto 1m"
             max-camera-orbit="auto auto 4m"
-            alt="Jared Augustine - 5'10\" animated character"
+            alt="Jared Augustine - 5'10" animated character"
         >
             <button slot="ar-button" style="
                 background: #3b82f6;
@@ -152,19 +152,29 @@
         // Wait for model-viewer to load
         const modelViewer = document.querySelector('model-viewer');
         
-        // Set real-world scale (5'10" = 1.78 meters)
+        // Set real-world scale and animation speed
         modelViewer.addEventListener('load', () => {
             // Scale set to 1.0 for proper life-size (5'10")
             const scale = 1.0;
             modelViewer.scale = `${scale} ${scale} ${scale}`;
             
+            // Control animation speed (0.5 = half speed, 1.0 = normal, 2.0 = double speed)
+            const animations = modelViewer.availableAnimations;
+            if (animations && animations.length > 0) {
+                modelViewer.animationName = animations[0];
+                modelViewer.timeScale = 0.5; // Slow down to 50% speed (half speed)
+            }
+            
             console.log('Model loaded and scaled to:', scale);
+            console.log('Available animations:', animations);
         });
         
-        // Optional: Track AR activation
+        // Force interaction mode for AR
         modelViewer.addEventListener('ar-status', (event) => {
             if (event.detail.status === 'session-started') {
                 console.log('AR session started');
+                // Try to enable translation in AR
+                modelViewer.interactionPrompt = 'auto';
             }
         });
     </script>
